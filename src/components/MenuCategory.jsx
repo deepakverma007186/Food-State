@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FoodData } from "../constant/FoodData";
 
-export default function MenuCategory() {
+export default function MenuCategory({ onCategorySelect }) {
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     const uniqueCategories = [
@@ -11,15 +12,30 @@ export default function MenuCategory() {
     setCategories(uniqueCategories);
   }, []);
 
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    onCategorySelect(category);
+  };
+
   return (
     <div className="flex flex-wrap gap-2 my-2">
-      <button className="px-3 py-1 text-sm bg-white border border-orange-400 font-semibold rounded-md hover:bg-orange-400 hover:text-white">
+      <button
+        onClick={() => handleCategoryClick("All")}
+        className={`px-3 py-1 text-sm  border border-orange-400 font-semibold rounded-md  ${
+          selectedCategory === "All" ? "bg-orange-400 text-white" : "bg-white"
+        }`}
+      >
         All
       </button>
       {categories.map((category, index) => (
         <button
           key={index}
-          className="px-3 py-1 text-sm bg-white border border-orange-400 font-semibold rounded-md hover:bg-orange-400 hover:text-white"
+          onClick={() => handleCategoryClick(category)}
+          className={`px-3 py-1 text-sm  border border-orange-400 font-semibold rounded-md  ${
+            selectedCategory === category
+              ? "bg-orange-400 text-white"
+              : "bg-white"
+          }`}
         >
           {category}
         </button>
