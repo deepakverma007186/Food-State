@@ -3,8 +3,11 @@ import { FaShoppingCart } from "react-icons/fa";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import CartCard from "./CartCard";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export default function CheckOutCart() {
+  const navigation = useNavigate();
   const [showCard, setShowCart] = useState(false);
   const cartItems = useSelector((state) => state.cart.cart);
   const totalQty = cartItems.reduce((qty, item) => qty + item.qty, 0);
@@ -12,6 +15,19 @@ export default function CheckOutCart() {
     (total, item) => total + item.qty * item.price,
     0
   );
+  const handleCheckout = () => {
+    if (totalQty) {
+      navigation("/success");
+    } else {
+      toast.custom(() => (
+        <div className="bg-white flex justify-center items-center gap-1 p-2 shadow-md rounded-md">
+          <h2 className="text-orange-400">
+            Please add atleast one item, Thanks!
+          </h2>
+        </div>
+      ));
+    }
+  };
   return (
     <>
       <div
@@ -46,7 +62,10 @@ export default function CheckOutCart() {
               </span>
             </h3>
             <hr className="my-2 font-bold text-lg" />
-            <button className="bg-green-400 text-white p-2 font-bold text-lg w-full rounded-md">
+            <button
+              onClick={handleCheckout}
+              className="bg-green-400 text-white p-2 font-bold text-lg w-full rounded-md"
+            >
               Checkout
             </button>
           </div>
