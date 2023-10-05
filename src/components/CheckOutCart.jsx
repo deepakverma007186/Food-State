@@ -17,7 +17,7 @@ export default function CheckOutCart() {
   );
   const handleCheckout = () => {
     if (totalQty) {
-      navigation("/success");
+      navigation("/confirm");
     } else {
       toast.custom(() => (
         <div className="bg-white flex justify-center items-center gap-1 p-2 shadow-md rounded-md">

@@ -43,10 +43,10 @@ export default function Success() {
             You will receive within {formatTime(timeRemaining)}
           </p>
           <button
-            className="flex items-center justify-center gap-1 text-orange-400"
+            className="flex items-center justify-between gap-1 text-xl mt-4 text-orange-400"
             onClick={() => navigation("/")}
           >
-            <IoArrowBackCircle />
+            <IoArrowBackCircle className="text-2xl"/>
             Return to home
           </button>
         </>
